@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>正则扩展</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+    <button onclick="regex()">正则扩展</button>
+    <script>
+        function regex(){
+            //构造函数来创建正则
+            let regex1 = new RegExp('xyz','i');
+            let regex2 = new RegExp(/xyz/i);
+            console.log(regex1.test('xyz123'),regex2.test('xyz123'),);    //true true
+
+            let regex3 = new RegExp(/xyz/ig,'i');     //后面的修饰符会把前面的修饰符给覆盖掉
+            console.log(regex3.flags);                 //es6新增的，用来获取正则表达式的修饰符
+
+
+            //g修饰符和y修饰符
+            console.log('//g修饰符和y修饰符');
+            let ss = 'bbb_bb_b';
+            let a1 = /b+/g;         //g只要匹配到都算
+            let a2 = /b+/y;         //y必须是下一个开始的字母开始匹配
+
+            console.log('one',a1.exec(ss),a2.exec(ss));       //g修饰符匹配到都可以，y修饰符必须从第一个开始匹配，如果第一个不是b，则会输出null
+            console.log('two',a1.exec(ss),a2.exec(ss));       //第二次匹配，g修饰符会只要匹配到都可以，y修饰符必须从紧邻的下一个字符开始匹配
+
+            console.log(a1.sticky,a2.sticky);       //判断是否开启了y修饰符 false true
+
+
+            //u修饰符
+            console.log('//u修饰符');
+            console.log('u-1',/^\uD83D/.test('\uD83D\uDC2A'));   //不加u把后面的四个字节当成两个字符
+            console.log('u-2',/^\uD83D/u.test('\uD83D\uDC2A'));  //加u把后面的4个字节当做一个字符
+
+            console.log(/\u{61}/.test('a'));  // false 大括号括起来代表一个unicode字符，所以必须加u才能识别
+            console.log(/\u{61}/u.test('a')); // true
+
+            console.log(`\u{20BB7}`);
+            let s = '𠮷';
+            console.log('u-1', /^.$/.test(s));  //false 字符串大于两个字节，必须加u修饰符才能匹配到
+            console.log('u-2', /^.$/u.test(s)); //true
+
+            console.log('test-1', /𠮷{2}/.test('𠮷𠮷')); // false
+            console.log('test-2', /𠮷{2}/u.test('𠮷𠮷')); // true
+        }
+    </script>
+</body>
+</html>

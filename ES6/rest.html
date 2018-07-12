@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>解构赋值</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+    <button onclick="assign()">解构赋值</button>
+    <script>
+        //*************解构赋值(...rest)****************
+        function assign(){
+            //数组的解构赋值
+            let a, b, rest;
+            [a, b, rest] = [1, 2];
+            console.log(a,b,rest);   // 1 2 undefined
+
+            [a,b,...rest] = [1,2,3,4,5,6,7];    //1 2 [3,4,5,6,7]
+            console.log(a,b,rest);
+
+            //对象的解构赋值
+            ({ a,b } = { a:1, b:2 });
+            console.log(a,b);     //1 2
+
+            //默认值
+            [a, b, rest = 3] = [1, 2];
+            console.log(a,b,rest);      // 1 2 3
+        }
+
+        // 实际应用
+            // (1)变量交换
+            $(function(){
+                let a = 1;
+                let b = 2;
+                [a,b] = [b,a];
+                console.log("交换变量后a,b的值为:a = " + a + "  b = " + b);
+            });
+            //（2）接收函数返回的值
+            $(function(){
+                function f(){
+                    return [12,13];
+                }
+                let a,b;
+                [a,b] = f();
+                console.log(a,b);   //12 13
+
+                function h(){
+                    return [12,13,14,15,16];
+                }
+                [a, , , ,b] = h();  //函数返回多个值，可以选择性的接收对应的值
+                console.log(a,b);    //12 16
+
+                [a, , ...b] = h();   //取出对应的值，其他的值可以直接赋值给数组
+                console.log(a,b);    //12 [14, 15, 16]
+            });
+
+        //对象的解构赋值的应用
+            $(function(){
+               let o = { p:42, q:true };
+               let { p, q } = o;
+               console.log(p,q);   // 42 true
+
+                let { a = 10, b = 11 } = { a: 3 };    //对象的默认值更改
+                console.log(a,b);    //3 11
+            });
+
+        //解构赋值的简单应用举例
+        $(function(){
+           let metaData = {
+               title: 'abc',
+               test: [{
+                   title: 'gao',
+                   desc: 'description'
+               }]
+           }
+
+           let { title: esTitle, test: [{ title: cnTitle }] } = metaData;
+           console.log(esTitle, cnTitle);  // abc gao
+        });
+    </script>
+</body>
+</html>

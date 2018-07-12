@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-router实现二级菜单内容转换</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+        <h1>Hello App!</h1>
+    <div style="float:left;margin-right:20px;">
+        <ul>
+            <!-- 使用 router-link 组件来导航. -->
+            <!-- 通过传入 `to` 属性指定链接. -->
+            <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
+           <li><router-link to="/foo">Go to Foo</router-link></li>
+            <li><router-link to="/bar">Go to Bar</router-link></li>
+        </ul>
+    </div>
+    <div style="float:left;margin-top:20px;">
+        <!-- 路由出口 -->
+        <!-- 路由匹配到的组件将渲染在这里 -->
+        <router-view></router-view>
+    </div>
+</div>
+<script>
+    const Foo = { template: '<div>foo</div>' }
+    const Bar = { template: '<div>bar</div>' }
+
+    const routes = [
+        { path: '/foo', component: Foo },
+        { path: '/bar', component: Bar }
+    ]
+
+    const router = new VueRouter({
+        routes // (缩写) 相当于 routes: routes
+    })
+
+    const app = new Vue({
+        //el:'#app',
+        router
+    }).$mount('#app')
+</script>
+</body>
+</html>

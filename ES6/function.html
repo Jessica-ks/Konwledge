@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>函数扩展</title>
+</head>
+<body>
+    <button onclick="func()">函数扩展</button>
+    <script>
+        function func(){
+            // （1）默认值 ：es6允许直接为函数的参数设置默认值，即直接写在参数定义的后面
+            function fn(x,y='hello'){
+                console.log(x,y);
+            }
+            fn('word');    // word hello
+            fn('word','nihao');    //word nihao
+
+
+            let a = 'nihao';
+            function test(a,b=a){
+                console.log(a,b);
+            }
+            test('word');   // word word
+            test();         // undefined undefined
+
+
+            let s = 'nihao';
+            function te(x,p=s){
+                console.log(x,p);
+            }
+            te('hello');     // hello nihao
+
+
+            //(2) rest参数（形式为...变量名）: 用于获取函数的多余参数
+            function fm(...arg){
+                for(let v of arg){
+                    console.log(v);
+                }
+            }
+            fm(1,2,3,4);
+            // 1
+            // 2
+            // 3
+            // 4
+
+            console.log(...[1,2,3,4]);          // 1 2 3 4
+            console.log('a',...[1,2,3,4]);      // a 1 2 3 4
+
+
+            // （3）箭头函数 （=>）
+            /*  箭头函数使用注意事项：
+                (1) 函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象
+                (2) 不可以当做构造函数，也就是说，不可以使用new命令，否则会抛出一个错误
+                (3) 不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用rest参数代替
+                (4) 不可以使用yield命令，因此箭头函数不能用作Generator函数。
+            */
+            let arr = v => v*2;
+            console.log(arr(2));       // 4
+
+            var sum = (num1,num2) => { return num1 + num2; }     //如果箭头函数的代码块部分多于一条语句，就要使用大括号将它们括起来，并且使用return语句返回。
+
+
+            // (4) 绑定this
+            /* 函数绑定运算符是并排的两个冒号(::),双冒号左边是一个对象，右边是一个函数。该运算符会自动将左边的对象，作为上下文环境（即this对象），绑定到右边的函数上面 */
+
+                foo::bar;
+                    // 等同于
+                bar.bind(foo);
+
+                foo::bar(...arguments);
+                    // 等同于
+                bar.apply(foo,arguments);
+
+                const hasOwnProperty = Object.prototype.hasOwnProperty;
+                function hasOwn(obj,key){
+                    return obj::hasOwnProperty(key);
+                }
+        }
+    </script>
+</body>
+</html>

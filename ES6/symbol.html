@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Symbol</title>
+</head>
+<body>
+    <button onclick="func()">Symbol</button>
+    <img src="../Vue/01.jpg" />
+    <script>
+        /* js的数据类型：
+            原始数据类型：string，number，Boolean，null，undefined；
+            引用数据类型：Object，Array，Function
+         */
+        function func(){
+            // (1) Symbol简单举例: es6引入了一种新的原始数据类型Symbol，表示独一无二的值。
+            let a1 = Symbol();
+            let a2 = Symbol();
+            console.log(a1===a2)    // false
+
+            let a3 = Symbol.for('a3');
+            let a4 = Symbol.for('a3');
+            console.log(a3===a4)    // true
+
+
+            /* (2) Symbol的一些API:
+                    Symbol.for():用来命名具有相同key值的对象
+                    Object.getOwnPropertySymbols()：返回一个数组，成员是当前对象的所有用作属性名的Symbol值
+                    Reflect.ownKeys(): 返回所有类型的键名，包括常规键名和Symbol键名
+            */
+            let a = Symbol.for('abc');
+            let obj = {
+                [a]:123,
+                abc:234,
+                c:345
+            }
+            console.log(obj);
+            // abc:234
+            // c:345
+            // Symbol(abc):123
+
+            Object.getOwnPropertySymbols(obj).forEach(function(item){
+                console.log('symbol',item,obj[item]);          // symbol Symbol(abc) 123
+            })
+            Reflect.ownKeys(obj).forEach(function(item){
+                console.log(item,obj[item]);
+                // abc 234
+                // c 345
+                // Symbol(abc) 123
+            })
+        }
+    </script>
+</body>
+</html>

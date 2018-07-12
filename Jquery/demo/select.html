@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>城市选择器</title>
+    <link rel="stylesheet" href="style.css"/>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+    <button id="select" onclick="select()">选择城市</button>
+    <div class="city">
+        <ul></ul>
+    </div>
+    <div class="real">
+        <ul></ul>
+    </div>
+    <div class="street">
+        <ul></ul>
+    </div>
+    <div class="content">未选择</div>
+    <script>
+        function select(){
+            $.ajax({
+                url:"data.json",
+                dataType:'json',
+                type:'post',
+                success:function(rel){
+                    for(var i= 0;i < rel.city.name.length;i++){
+                        $('.city ul').append('<li>'+ rel.city.name[i]+ '</li>');
+                    }
+                    $('.city').show();
+                    $('.city ul li').click(function(){
+                        var count =$(this).index();
+                        console.log(count);
+                        var cityVal = $(this).html();
+                        $('.real').show();
+                        $('.street').hide();
+                        $('.city').hide();
+                        if(count == 0){
+                            for(var i= 0;i < rel.real.bname.length;i++){
+                                $('.real ul').append('<li>'+ rel.real.bname[i]+ '</li>');
+                            }
+                            $('.real ul li').click(function(){
+                                var ii = $(this).index();
+                                var realVal = $(this).html();
+                                $('.street').show();
+                                $('.real').hide();
+                                $('.city').hide();
+                                if(ii == 0){
+                                    for(var i= 0;i < rel.street.name1.length;i++){
+                                        $('.street ul').append('<li>'+ rel.street.name1[i]+ '</li>');
+                                    }
+                                    $('.street ul li').click(function(){
+                                        var streetVal = $(this).html();
+                                        $('.real').hide();
+                                        $('.city').hide();
+                                        $('.street').hide();
+                                        var content = cityVal + "-" + realVal + "-" + streetVal;
+                                        $('.content').html(content);
+                                        $('.city ul li').remove();
+                                        $('.real ul li').remove();
+                                        $('.street ul li').remove();
+                                    });
+                                }
+                                else{
+                                    for(var i= 0;i < rel.street.name2.length;i++){
+                                        $('.street ul').append('<li>'+ rel.street.name2[i]+ '</li>');
+                                    }
+                                    $('.street ul li').click(function(){
+                                        var streetVal = $(this).html();
+                                        $('.real').hide();
+                                        $('.city').hide();
+                                        $('.street').hide();
+                                        var content = cityVal + "-" + realVal + "-" + streetVal;
+                                        $('.content').html(content);
+                                        $('.city ul li').remove();
+                                        $('.real ul li').remove();
+                                        $('.street ul li').remove();
+                                    });
+                                }
+                            });
+                        }
+                        else{
+                            for(var i= 0;i < rel.real.sname.length;i++){
+                                $('.real ul').append('<li>'+ rel.real.sname[i]+ '</li>');
+                            }
+                            $('.real ul li').click(function(){
+                                var jj = $(this).index();
+                                var realVal = $(this).html();
+                                $('.street').show();
+                                $('.real').hide();
+                                $('.city').hide();
+                                if(jj == 0){
+                                    for(var i= 0;i < rel.street.name3.length;i++){
+                                        $('.street ul').append('<li>'+ rel.street.name3[i]+ '</li>');
+                                    }
+                                    $('.street ul li').click(function(){
+                                        var streetVal = $(this).html();
+                                        $('.real').hide();
+                                        $('.city').hide();
+                                        $('.street').hide();
+                                        var content = cityVal + "-" + realVal + "-" + streetVal;
+                                        $('.content').html(content);
+                                        $('.city ul li').remove();
+                                        $('.real ul li').remove();
+                                        $('.street ul li').remove();
+                                    });
+                                }
+                                else{
+                                    for(var i= 0;i < rel.street.name4.length;i++){
+                                        $('.street ul').append('<li>'+ rel.street.name4[i]+ '</li>');
+                                    }
+                                    $('.street ul li').click(function(){
+                                        var streetVal = $(this).html();
+                                        $('.real').hide();
+                                        $('.city').hide();
+                                        $('.street').hide();
+                                        var content = cityVal + "-" + realVal + "-" + streetVal;
+                                        $('.content').html(content);
+                                        $('.city ul li').remove();
+                                        $('.real ul li').remove();
+                                        $('.street ul li').remove();
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>

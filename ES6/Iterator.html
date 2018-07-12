@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Iterator和for...of循环</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+    <div>
+        <h1>Iterator接口的目的，就是为所有数据结构，提供一种统一的访问机制，即for...of循环</h1>
+        <p>当使用for...of循环遍历某种数据结构时，该循环会自动去寻找Iterator接口。一种数据解构只要部署了Iterator接口，我们就称这种数据结构时“可遍历的”</p>
+        <p>ES6规定，默认的Iterator接口部署在数据结构的Symbol.iterator属性，或者说，一个数据结构只要具有Symbol.iterator属性，就可以认为是“可遍历的”。</p>
+        <p>Symbol.iterator属性本身是一个函数，就是当前数据结构默认的遍历器生成函数。执行这个函数，就会返回一个遍历器。至于属性名Symbol.iterator，它是一个表达式，返回Symbol对象的Iterator属性。</p>
+    </div>
+    <script>
+        // 数组的Symbol.iterator属性
+        // 变量arr是一个数组，原生就具有遍历器接口，部署在arr的Symbol.iterator属性上面。所以调用这个属性，就得到遍历器对象。
+        $(function(){
+            let arr = ['hellow','world'];
+            let map = arr[Symbol.iterator]();
+            console.log(map.next());    // { value: "hellow", done: false }
+            console.log(map.next());    // { value: "world", done: false }
+            console.log(map.next());    // { value: "undefined", done: true }
+        });
+
+        // 自定义的Iterator接口
+        $(function(){
+            let obj = {
+                start: [1,2,3],
+                end: [7,8,9],
+                [Symbol.iterator](){
+                    let self = this;
+                    let index =0;
+                    let arr = self.start.concat(self.end);
+                    let len = arr.length;
+                    return {
+                        next(){
+                            if(index < len){
+                                return{
+                                    value: arr[index++],
+                                    done:false
+                                }
+                            }else{
+                                return{
+                                    value: arr[index++],
+                                    done:true
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            for(let key of obj){
+                console.log(key);      //   1 2 3 7 8 9
+            }
+        });
+    </script>
+</body>
+</html>

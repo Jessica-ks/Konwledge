@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>对象扩展</title>
+</head>
+<body>
+    <button onclick="func()">对象扩展</button>
+    <script>
+        function func(){
+            // (1) 属性的简介表示法
+            let a = 5,b = 6;
+            let es5 = {
+                a:a,
+                b:b
+            }
+            let es6 = {
+                a,
+                b
+            }
+            console.log(es5,es6);       //  { a:5, b:6 }   { a:5, b:6 }
+
+            let es5_fn = {
+                fn:function(){
+                    console.log('hello');
+                }
+            }
+            let es6_fn = {
+                fn:function(){
+                    console.log('hello');
+                }
+            }
+            console.log(es5_fn.fn,es6_fn.fn);
+            // f(){ console.log('hello'); }
+            // f(){ console.log('hello'); }
+
+
+            // (2) 动态key值：es6允许属性的key值是动态的变量
+            let aa = 'b';
+            let es5_obj = {
+                aa: 'c',
+                bb: 'c'
+            }
+            let es6_obj = {
+                [aa]: 'c'           //  aa是动态的变量，可以自由赋值
+            }
+            console.log(es5_obj,es6_obj);    // {aa: "c", bb: "c"}    {b: "c"}
+
+
+            // (3) Object.is 相当于es5中的===，来判断属性是否相等
+            console.log('is',Object.is('a','a'));        // true
+            console.log('is',Object.is([],[]));          //  false   数组对象拥有不同的地址
+
+
+            // (4) Object.assign:用于对象的合并，将源对象的所有可枚举属性，复制到目标对象
+            console.log('拷贝',Object.assign({a:1},{b:2}));       //  浅拷贝
+
+            let test = { a:2,b:3 }
+            for(let [key,value] of Object.entries(test)){        // 遍历
+                console.log([key, value]);                        //  ["a" , 2]     ["b" , 3]
+            }
+        }
+    </script>
+</body>
+</html>

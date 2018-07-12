@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ES6</title>
+</head>
+<body>
+    <button onclick="test()">let和const</button>
+    <br>
+    <br>
+
+    <script>
+        //**************let和const*****************
+        function test() {
+            for(let i=1;i<3;i++){    //let声明的变量只在自己的作用域有效，不能重复声明，切不存在变量提升的问题
+                console.log(i);     //1,2
+            }
+            console.log(i);       //报错ReferenceError
+
+            const PI = 3.14;      //const声明之后必须赋值，否则编译不通过；const声明的值不允许修改
+            console.log(PI);
+            const json ={
+                a:2
+            }
+            json.a = 3;
+            json.b = 3;            //json是指向内存地址的一个指针，指针的指向不变，但是那个被json指针所指向的内存地址所存储的内容是可以变化的；
+            console.log(json.a);     //3
+            console.log(json.b);     //3
+        }
+    </script>
+</body>
+</html>

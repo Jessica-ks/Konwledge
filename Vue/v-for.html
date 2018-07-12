@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-for</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(item,index) in items">
+                {{ parentMessage }} - {{ index }} - {{ item.text }}
+            </li>
+        </ul>
+        <hr>
+        <!--实例1:点击事件中获取v-for的索引值：直接传入索引值-->
+        <ul>
+            <li v-for="(option,index) in options">
+                <p class="text-success" v-on:click="getIndex(index)">Text:{{option.text}}--value:{{option.value}}</p>
+            </li>
+        </ul>
+        <div v-if="isNaN(click)==false">
+            <span>你点击的索引为：{{click}}</span>
+        </div>
+        <div v-else>
+            <p class="text-danger">试着点击上方LI条目</p>
+        </div>
+        <hr>
+        <!--实例2:点击事件中获取v-for的索引值：添加自定义属性data-index -->
+        <div>
+            <ul>
+                <li v-for="(item,index) in items">
+                    <a data-index="{{index}}" v-on:click="onclick" href="http://www.baidu.com">{{item.text}}</a>
+                </li>
+            </ul>
+        </div>
+        <input type="text" name="" id="index" value="" />
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data:{
+                msg:'Vue.js',
+                parentMessage: 'Parent',
+                click: 'a',
+                options: [
+                    { text: '上海市', value: '20' },
+                    { text: '湖北省', value: '43' },
+                    { text: '河南省', value: '45' },
+                    { text: '北京市', value: '10' }
+                ],
+                items: [
+                    { text: '巴士' },
+                    { text: '快车' },
+                    { text: '专车' },
+                    { text: '顺风车' },
+                    { text: '出租车' },
+                    { text: '代驾' }
+                ],
+                tags: [ 'JavaScript','MVVM','Vue.js']
+            },
+            methods:{
+                getIndex:function(index){
+                    this.click = index;
+                },
+                onclick:function(event){
+                    event.preventDefault();
+                    let target = event.target;
+                    console.log(target.getAttribute("data-index"));
+                    document.getElementById('index').value = target.getAttribute('data-index');
+                }
+            }
+        })
+    </script>
+</body>
+</html>

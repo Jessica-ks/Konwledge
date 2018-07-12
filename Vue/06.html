@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>绑定class或style</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <!--绑定class-->
+    <button class="static" v-bind:class="{ 'class-a': isA, 'class-b': isB}" v-on:click="func">点击变换class</button>
+    <br>
+    <br>
+    <button class="static" v-bind:class="classObject" v-on:click="func1">点击变换class2</button>
+    <br>
+    <br>
+    <div v-bind:class="[classA,classB]">数组模式</div>
+    <br>
+    <div v-bind:class="[classA,isB ? classB : '']">三元表达式模式</div>
+
+    <!--绑定内联样式-->
+    <div v-bind:style="{ color:activeColor,fontSize:fontSize + 'px'}" v-on:click="func">绑定内联样式</div>
+    <br>
+    <div v-bind:style="styleObject"></div>
+    <div v-bind:style="[styleObjectA,styleObjectB"></div>
+</div>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            isA:true,
+            isB: false,
+            classObject: {
+                'class-a': true,
+                'class-b': false
+            },
+            classA: 'class-a',
+            classB: 'class-b',
+            activeColor: 'red',
+            fontSize: 30,
+            styleObject:{
+                color:'red',
+                fontSize:'13px'
+            }
+        },
+        methods:{
+            func:function(){
+                this.isA = !this.isA;
+                this.isB = !this.isB;
+                this.activeColor = 'purple';
+                this.fontSize = 24;
+            },
+            func1:function(){
+                // console.log(this.classObject['class-a']);
+                this.classObject['class-a'] = !this.classObject['class-a'];
+                this.classObject['class-b'] = !this.classObject['class-b'];
+            }
+        }
+    })
+</script>
+</body>
+</html>

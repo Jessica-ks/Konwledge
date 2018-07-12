@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Demo</title>
+    <style type="text/css" media="screen">
+    	a.test{
+    		font-weight: bold;
+    	}
+    	#bar{
+    		width: 100px;
+    		height: 100px;
+    		background: red;
+    	}
+    </style>
+</head>
+<body>
+    <a href="http://jquery.com/">jQuery</a>
+	<ul>
+	  <li>list item 1</li>
+	  <li>list item 2</li>
+	  <li>list item 3</li>
+	</ul>
+	<p>a paragraph</p>
+	<p>Hello</p>
+	<span id="a">Hello Again</span>
+
+	<div class="container">
+	  <h2>Greetings</h2>
+	  <div class="inner">Hello</div>
+	  <div class="inner">Goodbye</div>
+	</div>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+ 
+    $( document ).ready(function() {
+        $( "a" ).click(function( event ) {
+            alert( "The link will no longer take you to jquery.com" );
+            event.preventDefault();
+            $("a").addClass('test');
+            $(this).hide("slow");
+        });
+        // $('li').add('p').css('background-color', 'red');
+        $('li').add(document.getElementsByTagName('p')[0]).css('background-color', 'red');
+        $("p").add(document.getElementById("a")).css("background", "yellow");
+        $('.inner').after('<p>Test</p>');
+        $('.container').after($('h2'));
+
+        $('<div/>').after('<p></p>').addClass('foo')
+ 		.filter('p').attr('id', 'bar').html('hello')
+		.end()
+		.appendTo('body');
+
+		$('p').after(function() {
+			return '<div>' + this.className + '</div>';
+		});
+	});
+ 
+    </script>
+</body>
+</html>

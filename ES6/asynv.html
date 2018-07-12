@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Async</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+    <div>
+        <p>async函数返回一个 Promise 对象，可以使用then方法添加回调函数。当函数执行的时候，一旦遇到await就会先返回，等到异步操作完成，再接着执行函数体内后面的语句。</p>
+        <p>async函数就是将 Generator 函数的星号（*）替换成async，将yield替换成await</p>
+        <p>async和Generator函数的比较：</p>
+        <ul>
+            <li>(1)内置执行器：Generator 函数的执行必须靠执行器，所以才有了co模块，而async函数自带执行器。也就是说，async函数的执行，与普通函数一模一样，只要一行。</li>
+            <li>(2)很好的语义：async和await，比起星号和yield，语义更清楚了。async表示函数里有异步操作，await表示紧跟在后面的表达式需要等待结果。</li>
+            <li>(3)更广的适应性：co模块约定，yield命令后面只能是 Thunk 函数或 Promise 对象，而async函数的await命令后面，可以是 Promise 对象和原始类型的值（数值、字符串和布尔值，但这时等同于同步操作）。</li>
+            <li>(4)返回值是Promise：async函数的返回值是 Promise 对象，这比 Generator 函数的返回值是 Iterator 对象方便多了</li>
+        </ul>
+        <p>async 函数有多种使用形式。</p>
+        <ul>
+            <li>(1)函数声明: async function foo() {}</li>
+            <li>(2)表达式声明: var bar = async function () {}</li>
+            <li>(3)对象声明: var obj = { async bazfunction(){ } }</li>
+            <li>(4)箭头函数声明: var fot = async() => { }</li>
+        </ul>
+    </div>
+    <script>
+        // 获取股票报价的函数示例
+        $(function(){
+            async function getStockPriceByName(name) {
+                const symbol = await getStockSymbol(name);
+                const stockPrice = await getStockPrice(symbol);
+                return stockPrice;
+            }
+
+            getStockPriceByName('goog').then(function (result) {
+                console.log(result);
+            });
+        });
+
+        // 指定多少毫秒后输出一个值
+        $(function(){
+            function timeout(ms) {
+                return new Promise((resolve) => {
+                    setTimeout(resolve, ms);
+                });
+            }
+
+            async function asyncPrint(value, ms) {
+                await timeout(ms);
+                console.log(value);
+            }
+
+            asyncPrint('hello world', 50);
+        });
+
+        // async 函数有多种使用形式。
+        // 函数声明
+        async function foo() {}
+
+        // 函数表达式
+        const foo = async function () {};
+
+        // 对象的方法
+        let obj = { async foo() {} };
+        obj.foo().then(...);
+
+        // Class 的方法
+        class Storage {
+            constructor() {
+                this.cachePromise = caches.open('avatars');
+            }
+
+            async getAvatar(name) {
+                const cache = await this.cachePromise;
+                return cache.match(`/avatars/${name}.jpg`);
+            }
+        }
+
+        const storage = new Storage();
+        storage.getAvatar('jake').then(...);
+
+        // 箭头函数
+        const foo = async () => {};
+    </script>
+</body>
+</html>

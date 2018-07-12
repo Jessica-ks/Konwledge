@@ -1,0 +1,83 @@
+/*列表中的icon*/
+.row{
+  margin-left:0 !important;
+  margin-right: 0 !important;
+  margin-bottom: 3px !important;
+}
+.row .fa{
+  font-size: 18px;
+  color:#3c8dbc;
+  cursor: pointer;
+}
+/*radio的行高*/
+.input-group.radio-height{
+  line-height: 34px;
+}
+/*列表的标题栏*/
+.box .box-header{
+  height:54px;
+  line-height:34px;
+}
+.box .box-header h3{
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+.box .box-header .btn{
+  vertical-align: baseline;
+}
+/*提交按钮的样式*/
+button.submit{
+  font-weight: 700;
+  font-size: 18px
+}
+.button-wrapper{
+  text-align: center;
+}
+/*重置圆角*/
+.el-input__inner{
+  border-radius: 0 !important;
+}
+td .el-input__inner{
+  border:0 !important;
+  color:#3c8dbc;
+}
+td .el-input__inner[disabled]{
+  background-color: transparent !important;
+}
+.edui-default .edui-editor{
+  border-radius: 0 !important;
+}
+/*重置ele组件 上传*/
+input.el-upload__input{
+  display: none !important;
+}
+/*弹出的消息提示*/
+.el-message{
+  top:0 !important;
+}
+/*模态框大小,优先级*/
+div.modal-dialog{
+  width: 380px;
+}
+/*loading的背景*/
+.el-loading-mask{
+  background-color: rgba(255,255,255,0.7) !important;
+}
+.el-loading-mask .el-loading-spinner{
+  margin-top: 0px !important;
+}
+
+/*table里的td超出部分隐藏*/
+/* .el-table div.cell{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }*/
+/*select选择器的宽度*/
+.form-group .el-select{
+  width:100%;
+}
+/* 表单中的input 禁用样式 */
+.form-control[disabled]{
+  opacity: .4;
+}

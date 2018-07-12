@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模块化：export和import</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+    <h2>ES6模块不是对象，而是通过export命令显示指定输出的代码，而通过import命令引入</h2>
+    <script>
+        $(function(){
+            export let A = 123;
+            export function text(){
+                console.log('123');
+            }
+            export class hello{
+                text(){
+                    console.log('345');
+                }
+            }
+        })
+
+        $(function(){
+            let A =123;
+            function text(){
+                console.log('123');
+            }
+            class hello{
+                text(){
+                    console.log('345');
+                }
+            }
+            export default{
+                A,
+                text,
+                hello
+            }
+        })
+    </script>
+</body>
+</html>

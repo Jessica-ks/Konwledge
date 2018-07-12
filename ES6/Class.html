@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Class的基本语法</title>
+</head>
+<body>
+    <button onclick="func()">Class的基本本语法</button>
+    <script>
+        function func(){
+            // (1)通过class关键字，可以定义类。
+            class Parent {
+                constructor(name='gao'){
+                    this.name = name;
+                }
+            }
+            let v_parent = new Parent();
+            console.log(v_parent);         //  { name: "gao" }
+
+
+            // (2)Class可以通过extends关键字实现继承
+            class Parents {
+                constructor(name='gao'){
+                    this.name = name;
+                }
+            }
+            class child extends Parents{ }
+            let v_child = new child();
+            console.log(v_child);       //  { name: "gao" }
+
+
+            // (3)constructor方法是类的默认方法，通过new命令生成对象实例时，自动调用该方法。一个类必须有constructor方法，如果没有显式定义，一个空的constructor方法会被默认添加。
+
+            /* (4)super关键字
+                super既可以当做函数使用，也可以当做对象使用。
+                super作为函数调用时，代表父类的构造函数。ES6要求，子类的构造函数必须执行一次super函数。
+                super作为对象时，在普通方法中，指向父类的原型对象；在静态方法中，指向父类。
+                super()在子类constructor构造方法中是为了获取this上下文环境，所以如果在constructor中使用到this，必须在使用this之前调用super()，反之不在constructor中使用this则不必调用super()
+            */
+            class Parent1 {
+                constructor(name='gao'){
+                    this.name = name;
+                }
+            }
+            class child1 extends Parent1{
+                constructor(name='child'){
+                    super(name);
+                    this.type = 'child';
+                }
+            }
+            let s_child = new child1();
+            console.log(s_child);       //  { name: "child" , type: "child" }
+
+            //（5）getter 和 setter  : 对某个属性设置存值函数和取值函数，拦截该属性的存取行为。
+            class Parent2 {
+                constructor(name='gao') {
+                    this.name = name;
+                }
+                get longName(){
+                    return 'mk' + this.name;
+                }
+                set longName(value){
+                    // console.log(value);
+                    this.name = value;
+                }
+            }
+
+            let s_parent = new Parent2();
+            console.log('get',s_parent.longName);  //get mkgao
+
+            s_parent.longName = 'hello';
+            console.log('get',s_parent.longName);  //get mkhello
+
+            // (6) 静态方法static： 所有在类中定义的方法，都会被实例继承。如果在一个方法前，加上static关键字，就表示该方法不会被实例继承，而是直接通过类来调用，这就称为“静态方法”。
+            class Parent3 {
+                constructor(name='gao') {
+                    this.name = name;
+                }
+                static tell(){
+                    console.log('tell');
+                }
+            }
+
+            let e_parent = new Parent3();
+            console.log(e_parent);          //{name: "gao"}
+            Parent3.tell();                 // tell
+
+            //(7) 静态属性： 指的是Class本身的属性，即Class.propName，而不是定义在实例对象（this）上的属性。
+            class Parent4 {
+                constructor(name='gao') {
+                    this.name = name;
+                }
+            }
+            Parent4.tell = 'nihao';
+
+            let h_parent = new Parent4();
+            console.log(h_parent);           //{ name: "gao"}
+            console.log(Parent4.tell);      // nihao
+        }
+    </script>
+</body>
+</html>

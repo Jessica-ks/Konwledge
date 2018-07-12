@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修饰器</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+    <div>
+        <h2>修饰器有两种使用方式：</h2>
+        <p>方法的修饰：修饰器函数一共可以接受三个参数，第一个参数是所要修饰的目标对象，即类的实例（不同于类的修饰，那种情况时target参数指的是类本身）；第二个参数是所要修饰的属性名，第三个参数是该属性的描述对象。</p>
+        <p>类的修饰： 修饰器是一个对类进行处理的函数。修饰器函数的第一个参数，就是所要修饰的目标类。</p>
+    </div>
+    <script>
+        // 方法的修饰
+        $(function(){
+            let readonly = function(target,name,descriptor){
+                descriptor.writable =false;
+                return descriptor;
+            };
+            class test{
+                @readonly
+                time(){
+                    return '2017-08-27'
+                }
+            }
+            let tests = new test();
+            console.log(tests.time());   //  2017-08-27
+        });
+
+        // 类的修饰
+        let typename = function(target,name,descriptor){
+            target.myname = 'hello';
+        };
+        @typename
+        class test{
+
+        }
+        console.log(test.myname);    // hello
+    </script>
+</body>
+</html>

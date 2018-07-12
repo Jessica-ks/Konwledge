@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Proxy代理</title>
+</head>
+<body>
+    <button onclick="func()">Proxy代理</button>
+    <script>
+        function func(){
+            // Proxy用于修改某些操作的默认行为。可以理解成，在目标对象之前架设一层“拦截”，外界对该对象的访问，都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。
+            let obj = {
+                name: 'gao',
+                time: '2017-08-13',
+                emp: '123'
+            }
+            let temp = new Proxy(obj,{
+                get(target,key){
+                    return target[key].replace('2017','2018');
+                },
+                set(target,key,value){
+                    if(key === 'name'){
+                        return target[key] = value;
+                    }else{
+                        return target[key];
+                    }
+                },
+                has(target,key){
+                    if(key === 'name'){
+                        return target[key];
+                    }else{
+                        return false;
+                    }
+                },
+                deleteProperty(target,key){
+                    if(key.indexOf('i') > -1){
+                        delete target[key];
+                        return true;
+                    }else{
+                        return target[key];
+                    }
+                },
+                ownKeys(target){
+                    return Object.keys(target).filter(item=>item!='name');
+                }
+            })
+
+            console.log('get',temp.time);      // get 2018-08-13
+            temp.time = '2018';
+            console.log('set',temp.name,temp);   // set gao  { name: "gao", time: "2017-08-13", temp: "1243" }
+
+            temp.name = 'he';
+            console.log('set',temp.name,temp); // set he  { name: "he", time: "2017-08-13", temp: "123" }
+
+            console.log('has','name' in temp,'time' in temp);  //has true false
+
+            delete temp.time;
+            console.log('delete',temp);   //delete  { name: "he", temp: "123" }
+
+            console.log('ownkeys',Object.keys(temp));  // ownkeys ["emp"]
+        }
+    </script>
+</body>
+</html>

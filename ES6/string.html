@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>字符串扩展</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+    <button onclick="expand()">字符串扩展</button>
+    <script>
+        //字符串遍历器
+        // es5
+        let strs = '\u{20bb7}abc';
+        for (let i = 0; i < strs.length; i++) {
+            console.log('es5', strs[i]);
+
+            //� � a b c
+        }
+        //es6
+        for (let code of strs) {
+            console.log('es6', code);
+
+            // 𠮷 a b c
+        }
+
+        //一些常用的字符串api
+        console.log('一些常用的字符串api');
+        let str = 'string';
+        console.log('includes',str.includes('c'));      // 判断是否包含    false
+        console.log('start',str.startsWith('s'));       // 以什么开头       true
+        console.log('end',str.endsWith('ng'));          // 以什么结尾       true
+        console.log('repeat',str.repeat(2));            // 字符串重复两次    stringstring
+
+        console.log('1',padStart(2,'0'));          //  01    用于头部补全
+        console.log('1',padEnd(2,'0'));            //  10    用于尾部补全
+
+
+        //模板字符串
+        console.log('模板字符串');
+        let name = "List";
+        let info = "hello world";
+        let m = `I am ${name} ${info}`;
+        console.log(m);                     // I am list hello world
+
+        //标签模板
+        let user = {
+            name: 'list',
+            info: 'hello world'
+        }
+        function fn(s,v1,v2){
+            console.log(s,v1,v2);
+            return s+v1+v2;
+        }
+        console.log(fn`i am ${user.name} ${user.info}`);        // ``符号相当于一个函数的参数fn(i am ${user.name} ${user.info})
+
+
+        //string.raw方法，往往用来充当模板字符串的处理函数，返回一个斜杠都被转义的字符串。
+        console.log('raw' + String.raw`hi\n${1+2}`);
+        console.log('noRaw '+ `hi\n${1+2}`);
+
+        //cbrt用来计算一个数的开方
+        console.log('-1',cbrt(-1));     //  -1
+        console.log('8',cbrt(8));       //   2
+    </script>
+</body>
+</html>

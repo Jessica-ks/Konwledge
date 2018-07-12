@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <meta name="keywords" content="div垂直居中,div文字垂直居中,div中input垂直居中,JS特效代码" />
+    <meta name="description" content="DIV实现input垂直居中，兼容IE6、IE7、IE8、Firefox、Safari。 。" />
+    <style type="text/css">
+        body{font-size:12px;}
+        .lanrentuku1{
+            border: 1px solid #CCC;
+            width:1120px;
+            height:40px;
+            margin:auto;
+            display: table;
+            *position: relative;
+            overflow: hidden;
+        }
+
+        .lanrentuku2 {
+            vertical-align: middle;
+            display: table-cell;
+            *position: absolute;
+            *top: 50%;
+        }
+
+        .lanrentuku3 {
+            *position: relative;
+            *top: -50%;
+            float:right;
+            padding-right:10px;
+        }
+        #aa{
+            height:94px;
+        }
+    </style>
+    <title>DIV实现input垂直居中 兼容IE6、IE7、IE8、Firefox、Safari_懒人图库</title>
+</head>
+<body><br /><br /><br />
+<div class="lanrentuku1">
+    <div class="lanrentuku2">
+        <form action="search.php" name="formsearch">
+            <div class="lanrentuku3">
+                <input id="aa" name="textfield" type="text" size="30">
+            </div>
+        </form>
+    </div>
+</div>
+<p align="center">DIV实现input垂直居中，兼容IE6、IE7、IE8、Firefox、Safari。</p>
+
+</body>
+</html>
